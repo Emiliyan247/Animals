@@ -7,7 +7,7 @@
     body { font-family: Arial, sans-serif; padding: 20px; }
     .animal-gif { width: 200px; height: auto; margin-top: 20px; }
   </style>
-  <img src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif" class="animal-gif" alt="Dog" />
+  <script src="https://unpkg.com/tau-prolog"></script>
 </head>
 <body>
   <h1>Prolog Животни</h1>
@@ -16,28 +16,28 @@
   <div id="output"></div>
 
   <script>
-    // Prolog база от знания
     const knowledge = `
       animal(lion).
       animal(elephant).
       animal(eagle).
       animal(snake).
+      animal(dog).
 
       is_mammal(lion).
       is_mammal(elephant).
+      is_mammal(dog).
       is_bird(eagle).
       is_reptile(snake).
     `;
 
-    // GIF изображения за животните
     const animalAnimations = {
       lion: '<img src="https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif" class="animal-gif" alt="Lion" />',
       elephant: '<img src="https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif" class="animal-gif" alt="Elephant" />',
       eagle: '<img src="https://media.giphy.com/media/Y4pAQv58ETJgRwoLxj/giphy.gif" class="animal-gif" alt="Eagle" />',
-      snake: '<img src="https://media.giphy.com/media/3o6ZsU1D2Fu3My4xFC/giphy.gif" class="animal-gif" alt="Snake" />'
+      snake: '<img src="https://media.giphy.com/media/3o6ZsU1D2Fu3My4xFC/giphy.gif" class="animal-gif" alt="Snake" />',
+      dog: '<img src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif" class="animal-gif" alt="Dog" />'
     };
 
-    // Създаване на Prolog сесия
     const session = pl.create(1000);
     session.consult(knowledge);
 
@@ -58,12 +58,17 @@
               outputDiv.innerHTML = "❌ Няма резултат.";
             } else {
               const vars = answer.links;
+              let shown = false;
               for (let key in vars) {
                 const animal = vars[key].id;
                 outputDiv.innerHTML += `<p>✅ ${key} = ${animal}</p>`;
                 if (animalAnimations[animal]) {
                   outputDiv.innerHTML += animalAnimations[animal];
+                  shown = true;
                 }
+              }
+              if (!shown) {
+                outputDiv.innerHTML += "<p>⚠️ Няма GIF за това животно.</p>";
               }
             }
           });

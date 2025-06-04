@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>Prolog Животни</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .animal-gif { width: 200px; height: auto; margin-top: 20px; }
+  </style>
+  <img src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif" class="animal-gif" alt="Dog" />
+</head>
+<body>
+  <h1>Prolog Животни</h1>
+  <textarea id="query" rows="2" cols="60" placeholder="Напр. is_mammal(X)."></textarea><br><br>
+  <button onclick="runQuery()">Изпълни заявката</button>
+  <div id="output"></div>
+
+  <script>
+    // Prolog база от знания
+    const knowledge = `
+      animal(lion).
+      animal(elephant).
+      animal(eagle).
+      animal(snake).
+
+      is_mammal(lion).
+      is_mammal(elephant).
+      is_bird(eagle).
+      is_reptile(snake).
+    `;
+
+    // GIF изображения за животните
+    const animalAnimations = {
+      lion: '<img src="https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif" class="animal-gif" alt="Lion" />',
+      elephant: '<img src="https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif" class="animal-gif" alt="Elephant" />',
+      eagle: '<img src="https://media.giphy.com/media/Y4pAQv58ETJgRwoLxj/giphy.gif" class="animal-gif" alt="Eagle" />',
+      snake: '<img src="https://media.giphy.com/media/3o6ZsU1D2Fu3My4xFC/giphy.gif" class="animal-gif" alt="Snake" />'
+    };
+
+    // Създаване на Prolog сесия
+    const session = pl.create(1000);
+    session.consult(knowledge);
+
+    function runQuery() {
+      const query = document.getElementById("query").value.trim();
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "";
+
+      if (!query.endsWith('.')) {
+        outputDiv.innerHTML = "❗ Моля, завършете заявката с точка (.)";
+        return;
+      }
+
+      session.query(query, {
+        success: function () {
+          session.answers(answer => {
+            if (answer === false) {
+              outputDiv.innerHTML = "❌ Няма резултат.";
+            } else {
+              const vars = answer.links;
+              for (let key in vars) {
+                const animal = vars[key].id;
+                outputDiv.innerHTML += `<p>✅ ${key} = ${animal}</p>`;
+                if (animalAnimations[animal]) {
+                  outputDiv.innerHTML += animalAnimations[animal];
+                }
+              }
+            }
+          });
+        },
+        error: function (err) {
+          outputDiv.innerHTML = "⚠️ Грешка: " + err;
+        }
+      });
+    }
+  </script>
+</body>
+</html>

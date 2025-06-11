@@ -1,36 +1,23 @@
 const knowledge = `
-  food(apple).
-  food(carrot).
-  food(pizza).
-  food(banana).
-  food(coffee).
-  food(tea).
-  food(broccoli).
-  food(orange_juice).
+  animal(lion).
+  animal(elephant).
+  animal(eagle).
+  animal(snake).
+  animal(dog).
 
-  is_fruit(apple).
-  is_fruit(banana).
-  is_fruit(orange_juice).
-
-  is_vegetable(carrot).
-  is_vegetable(broccoli).
-
-  is_drink(coffee).
-  is_drink(tea).
-  is_drink(orange_juice).
-
-  is_junk_food(pizza).
+  is_mammal(lion).
+  is_mammal(elephant).
+  is_mammal(dog).
+  is_bird(eagle).
+  is_reptile(snake).
 `;
 
 const foodAnimations = {
-  apple: '<img src="https://media.giphy.com/media/VbnUQpnihPSIgIXuZv/giphy.gif" class="food-gif" alt="Apple" />',
-  banana: '<img src="https://media.giphy.com/media/3o6ZsW1oVs0d3dX2c0/giphy.gif" class="food-gif" alt="Banana" />',
-  carrot: '<img src="https://media.giphy.com/media/BzyTuYCmvSORqs1ABM/giphy.gif" class="food-gif" alt="Carrot" />',
-  coffee: '<img src="https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif" class="food-gif" alt="Coffee" />',
-  tea: '<img src="https://media.giphy.com/media/J2HYidPzFfJ6ZsQCJx/giphy.gif" class="food-gif" alt="Tea" />',
-  pizza: '<img src="https://media.giphy.com/media/11tTNkNy1SdXGg/giphy.gif" class="food-gif" alt="Pizza" />',
-  broccoli: '<img src="https://media.giphy.com/media/9V5qwZzLKyzfai4nP0/giphy.gif" class="food-gif" alt="Broccoli" />',
-  orange_juice: '<img src="https://media.giphy.com/media/7CNRyHnGz4n3aD9tFg/giphy.gif" class="food-gif" alt="Orange Juice" />'
+  lion: '<img src="https://media.giphy.com/media/GeimqsH0TLDt4tScGw/giphy.gif" class="food-gif" alt="Lion" />',
+  elephant: '<img src="https://media.giphy.com/media/QBd2kLB5qDmysEXre9/giphy.gif" class="food-gif" alt="Elephant" />',
+  eagle: '<img src="https://media.giphy.com/media/Y4pAQv58ETJgRwoLxj/giphy.gif" class="food-gif" alt="Eagle" />',
+  snake: '<img src="https://media.giphy.com/media/3o6ZsU1D2Fu3My4xFC/giphy.gif" class="food-gif" alt="Snake" />',
+  dog: '<img src="https://media.giphy.com/media/13CoXDiaCcCoyk/giphy.gif" class="food-gif" alt="Dog" />'
 };
 
 const session = pl.create(1000);
@@ -63,7 +50,7 @@ function runQuery() {
             }
           }
           if (!shown) {
-            outputDiv.innerHTML += "<p>⚠️ Няма GIF за този продукт.</p>";
+            outputDiv.innerHTML += "<p>⚠️ Няма GIF за това животно.</p>";
           }
         }
       });
